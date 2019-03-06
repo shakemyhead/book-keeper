@@ -23,4 +23,24 @@ class BookController extends Controller
         $model = new Book();
         return $model->read();
     }
+
+    public function sortByTitle() {
+        $model = new Book();
+        return $model->sortByTitle();
+    }
+
+    public function sortByAuthor() {
+        $model = new Book();
+        return $model->sortByAuthor();
+    }
+
+    public function search($text) {
+        $model = new Book();
+        return $model->search($text);
+    }
+
+    public function updateAuthor($id,$author) {
+        $model = new Book();
+        return $model->updateAuthor($id,$author);
+    }
 }

@@ -17,6 +17,14 @@ Route::get('/', function () {
 
 Route::get('/getBooks', 'BookController@read');
 
+Route::get('/search/{text}', 'BookController@search');
+
+Route::get('/sortByTitle', 'BookController@sortByTitle');
+
+Route::get('/sortByAuthor', 'BookController@sortByAuthor');
+
 Route::post('/addBook', 'BookController@create');
+
+Route::patch('/updateAuthor/{id}/{author}', 'BookController@updateAuthor');
 
 Route::delete('/removeBook', 'BookController@remove');

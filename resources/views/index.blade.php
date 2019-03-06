@@ -17,29 +17,50 @@
     </head>
 
     <body>
+        <!-- author name editing modal -->
+        <div class="ui mini modal">
+            <div class="header">Edit Author</div>
+            <div class="content">
+                <div class="ui fluid action input">
+                    <input id="newAuthorName" type="text">
+                    <div class="ui small primary button" id="updateAuthor">Update</div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui small cancel button">Cancel</div>
+            </div>
+        </div>
+
         <div class="ui centered grid" style="margin-top:1em;">
-            <div class="row">
+            <div class="row">        
+                <!-- adding new book section -->
                 <div class="ui left aligned segment" style="width:40%;">
                     <div class="ui dividing header">Add a new book</div>
-                    <p><div class="ui labeled input">
+                    <p><div class="ui fluid labeled input">
                         <div class="ui label">Title</div>
-                        <input id="newTitle" type="text" required>
+                        <input id="newTitle" type="text">
                     </div></p>
-                    <p><div class="ui labeled input">
+                    <p><div class="ui fluid labeled input">
                         <div class="ui label">Author</div>
-                        <input id="newAuthor" type="text" required>
+                        <input id="newAuthor" type="text">
                     </div></p>
-                    <div id="submitBtn" class="ui primary button">Add</div>
+                    <div id="submitBtn" class="ui right floated primary button">Add</div>
                 </div>
             </div>
             <div class="row">
+            <!-- listing all books section -->
                 <div class="ui left aligned segment" style="width:40%;">
                     <div class="ui dividing header">Current list of books</div>
+                    <div class="ui fluid action input">
+                        <input type="text" placeholder="Search..." id="searchText">
+                        <div class="ui icon button" id="search"><i class="search icon"></i></div>
+                    </div>
+                
                     <table id="bookList" class="ui celled table">
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Author</th>
+                                <th>Title <button class="ui mini right floated icon button" id="sortByTitle"><i class="sort icon"></i></button></th>
+                                <th>Author <button class="ui mini right floated icon button" id="sortByAuthor"><i class="sort icon"></i></button></th>
                                 <th>Delete</th>
                             </tr>
                         </thead>

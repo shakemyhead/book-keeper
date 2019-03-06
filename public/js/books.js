@@ -5,43 +5,21 @@ $(document).ready(function() {
         type: 'GET',
         success: function(books) {
             console.log(books)
-            let html = "";
-            books.forEach(function(book) {
-                html += `<tr><td>${book.title}</td>
-                <td>${book.author}</td>
-                <td style="text-align:center;">
-                <button class="ui small icon button" onclick="deleteBook(${book.id})">
-                <i class="trash alternate icon"></i>
-                </button>
-                </td></tr>`;
-            });
-            $("#bookList tbody").html(html);
+            populateBooksTable(books);
         }
     });
 
     //when adding new book
-    $("#submitBtn").on('click',function(e) {
-        const title = $("#newTitle").val();
-        const author = $("#newAuthor").val();
-        if (title && author) {
-            //create new
-            $.ajax({
-                url: 'addBook',
-                data: {
-                    'title':title,
-                    'author':author
-                },
-                type: 'POST',
-                success: function() {
-                    alert('Successfully added book');
-                    window.location.reload();
-                }
-            });
-        } else {
-            //require user to provide both
-            alert('Please include both title and author');
-        }
-    });
+    $("#submitBtn").on('click',addNewBook);
+
+    //searching by text
+    $("#search").on('click',searchBooks);
+
+    //sorting by title
+    $("#sortByTitle").on('click',sortByTitle);
+
+    //sorting by author
+    $("#sortByAuthor").on('click',sortByAuthor);
 });
 
 function deleteBook(id) {
@@ -58,4 +36,96 @@ function deleteBook(id) {
             }
         });
     }
+}
+
+function addNewBook() {
+    const title = $("#newTitle").val();
+    const author = $("#newAuthor").val();
+    if (title && author) {
+        //create new
+        $.ajax({
+            url: 'addBook',
+            data: {
+                'title':title,
+                'author':author
+            },
+            type: 'POST',
+            success: function() {
+                alert('Successfully added book');
+                window.location.reload();
+            }
+        });
+    } else {
+        //require user to provide both
+        alert('Please include both title and author');
+    }
+}
+
+function editAuthorModal(authorName,id) {
+    $('.mini.modal')
+        .modal('show');
+    $("#newAuthorName").val(authorName);
+    $("#updateAuthor").on('click',{ 'id':id },updateAuthor);
+}
+
+function updateAuthor(event) {
+    const newAuthorName = $("#newAuthorName").val();
+    $.ajax({
+        url: `updateAuthor/${event.data.id}/${newAuthorName}`,
+        type: 'PATCH',
+        success: function(results) {
+            $('.mini.modal')
+                .modal('hide');
+            populateBooksTable(results);
+        }
+    });
+}
+
+function populateBooksTable(books) {
+    let html = "";
+    books.forEach(function(book) {
+        html += `<tr><td>${book.title}</td>
+        <td>${book.author} 
+            <button class="ui right floated mini class icon button" onclick="editAuthorModal('${book.author}',${book.id})">
+                <i class="edit icon"></i>
+            </button>
+        </td>
+        <td style="text-align:center;">
+            <button class="ui small icon button" onclick="deleteBook(${book.id})">
+                <i class="trash alternate icon"></i>
+            </button>
+        </td></tr>`;
+    });
+    $("#bookList tbody").html(html);
+}
+
+function searchBooks() {
+    const searchText = $("#searchText").val();
+    $.ajax({
+        url: `search/${searchText}`,
+        type: 'GET',
+        success: function(results) {
+            populateBooksTable(results);
+        }
+    });
+}
+
+function sortByTitle() {
+    $.ajax({
+        url: `sortByTitle`,
+        type: 'GET',
+        success: function(results) {
+            populateBooksTable(results);
+        }
+    });
+}
+
+function sortByAuthor() {
+    $.ajax({
+        url: `sortByAuthor`,
+        type: 'GET',
+        success: function(results) {
+            populateBooksTable(results);
+        }
+    });
 }
