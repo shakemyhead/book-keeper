@@ -23,6 +23,8 @@ Route::get('/sortByTitle', 'BookController@sortByTitle');
 
 Route::get('/sortByAuthor', 'BookController@sortByAuthor');
 
+Route::get('/exportBooks/{format}/{content}', 'BookController@exportBooks');
+
 Route::post('/addBook', 'BookController@create');
 
 Route::patch('/updateAuthor/{id}/{author}', 'BookController@updateAuthor');

@@ -65,6 +65,26 @@
                             </tr>
                         </thead>
                         <tbody></tbody>
+                    </table>
+
+                    <!-- export buttons -->
+                    <div class="ui right floated labeled icon dropdown small button">
+                        <span class="text">Export XML</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item" id="exportXMLTitles">Titles XML</div>
+                            <div class="item" id="exportXMLAuthors">Authors XML</div>
+                            <div class="item" id="exportXMLFull">Full XML</div>
+                        </div>
+                    </div>
+                    <div class="ui right floated labeled icon dropdown small button">
+                        <span class="text">Export CSV</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item" id="exportCSVTitles">Titles CSV</div>
+                            <div class="item" id="exportCSVAuthors">Authors CSV</div>
+                            <div class="item" id="exportCSVFull">Full CSV</div>
+                        </div>
                     </div>
                 </div>
             </div>

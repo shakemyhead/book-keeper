@@ -4,10 +4,23 @@ $(document).ready(function() {
         url: 'getBooks',
         type: 'GET',
         success: function(books) {
-            console.log(books)
             populateBooksTable(books);
         }
     });
+
+    //dropdown
+    $('.ui.dropdown')
+    .dropdown();
+
+    //when exporting csv
+    $("#exportCSVTitles").on('click',{ 'format':'csv','content':'titles' },exportBooks);
+    $("#exportCSVAuthors").on('click',{ 'format':'csv','content':'authors' },exportBooks);
+    $("#exportCSVFull").on('click',{ 'format':'csv','content':'full' },exportBooks);
+    
+    //when exporting xml
+    $("#exportXMLTitles").on('click',{ 'format':'xml','content':'titles' },exportBooks);
+    $("#exportXMLAuthors").on('click',{ 'format':'xml','content':'authors' },exportBooks);
+    $("#exportXMLFull").on('click',{ 'format':'xml','content':'full' },exportBooks);
 
     //when adding new book
     $("#submitBtn").on('click',addNewBook);
@@ -66,6 +79,16 @@ function editAuthorModal(authorName,id) {
         .modal('show');
     $("#newAuthorName").val(authorName);
     $("#updateAuthor").on('click',{ 'id':id },updateAuthor);
+}
+
+function exportBooks(event) {
+    $.ajax({
+        url: `exportBooks/${event.data.format}/${event.data.content}`,
+        type: 'GET',
+        success: function() {
+            window.open(`books_${event.data.content}.${event.data.format}`, '_blank');
+        }
+    });
 }
 
 function updateAuthor(event) {

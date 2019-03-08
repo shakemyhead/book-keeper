@@ -13,15 +13,20 @@ class BookController extends Controller
         $model = new Book();
         $model->create(Input::all());
     }
-
-    public function remove() {
+    
+    public function exportBooks($format,$content) {
         $model = new Book();
-        $model->remove(Input::get('id'));
+        $model->exportBooks($format,$content);
     }
 
     public function read() {
         $model = new Book();
         return $model->read();
+    }
+
+    public function remove() {
+        $model = new Book();
+        $model->remove(Input::get('id'));
     }
 
     public function sortByTitle() {
